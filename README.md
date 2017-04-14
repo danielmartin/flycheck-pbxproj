@@ -3,6 +3,9 @@
 Adds syntax checking capabilities to flycheck for Xcode projects
 (.pbxproj) using Kin (https://github.com/Karumi/Kin).
 
+Requires pbxproj-mode, a major mode for editing Xcode project files
+(https://github.com/danielmartin/pbxproj-mode).
+
 Do you hate when you solve an Xcode project merge conflict incorrectly
 and now you cannot open it in Xcode? Here's flycheck-pbxproj in Ediff
 helping you prevent this before saving the file:
@@ -26,5 +29,5 @@ Not Available Yet
 
 ```
 (require 'flycheck-pbxproj)
-(add-hook 'pbxproj-mode-hook 'flycheck-mode)
+(flycheck-pbxproj-setup)
 ```

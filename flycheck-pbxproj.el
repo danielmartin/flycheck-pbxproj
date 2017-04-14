@@ -5,16 +5,17 @@
 ;; Author: Daniel Martín <mardani29@yahoo.es>
 ;; Created: 10 April 2017
 ;; Version: 0.1
-;; Package-Requires: ((flycheck "0.25"))
+;; Package-Requires: ((flycheck "0.25") (pbxproj-mode "0.1"))
 
 ;;; Commentary:
 
 ;; This package adds support for syntax checking Xcode projects using
-;; Kin (https://github.com/Karumi/Kin).  To use it, add something like
-;; the following to your init.el:
+;; Kin (https://github.com/Karumi/Kin).  It requires pbxproj-mode
+;; (https://github.com/danielmartin/pbxproj-mode) to be installed as
+;; well.  To use it, add something like the following to your init.el:
 
 ;; (require 'flycheck-pbxproj)
-;; (add-hook 'pbxproj-mode-hook 'flycheck-mode)
+;; (flycheck-pbxproj-setup)
 
 ;; Kin can be installed using your favorite Python package manager:
 ;; $ pip install kin
@@ -42,6 +43,7 @@
 
 ;;; Code:
 (require 'flycheck)
+(require 'pbxproj-mode)
 
 (flycheck-define-checker pbxproj
   "A checker for Xcode project files (.pbxproj), showing syntax
@@ -53,7 +55,11 @@ errors typically as a result of a bad merge conflict fix."
           line-end))
   :modes pbxproj-mode)
 
-(add-to-list 'flycheck-checkers 'pbxproj)
+;;;###autoload
+(defun flycheck-pbxproj-setup ()
+  "Convenience function to setup the pbxproj syntax checker."
+  (add-hook 'pbxproj-mode-hook 'flycheck-mode)
+  (add-to-list 'flycheck-checkers 'pbxproj))
 
 (provide 'flycheck-pbxproj)
 ;;; flycheck-pbxproj.el ends here
